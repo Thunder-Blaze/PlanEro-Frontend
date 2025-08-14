@@ -7,7 +7,7 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-bold text-lg mb-4">PARTYSLATE</h3>
+            <h3 className="font-bold text-lg mb-4">PLANERO</h3>
             <p className="text-muted-foreground text-sm mb-4">
               Find unique venues, vendors, and services for your special event.
             </p>
@@ -107,7 +107,7 @@ export function Footer() {
         </div>
 
         <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 PartySlate. All rights reserved.</p>
+          <p>&copy; 2024 PlanEro. All rights reserved.</p>
         </div>
       </div>
     </footer>

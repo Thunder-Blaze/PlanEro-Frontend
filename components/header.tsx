@@ -37,16 +37,13 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold tracking-tight">PARTYSLATE</span>
+            <span className="text-2xl font-bold tracking-tight">PLANERO</span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/venues" className="text-sm font-medium hover:text-primary transition-colors">
-              VENUES
-            </Link>
-            <Link href="/planners" className="text-sm font-medium hover:text-primary transition-colors">
-              PLANNERS
+            <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">
+              ABOUT
             </Link>
             <Link href="/vendors" className="text-sm font-medium hover:text-primary transition-colors">
               VENDORS
@@ -160,11 +157,8 @@ export function Header() {
           >
             <div className="container mx-auto px-4 py-4 space-y-4">
               <nav className="space-y-2">
-                <Link href="/venues" className="block py-2 text-sm font-medium">
-                  VENUES
-                </Link>
-                <Link href="/planners" className="block py-2 text-sm font-medium">
-                  PLANNERS
+                <Link href="/about" className="block py-2 text-sm font-medium">
+                  ABOUT
                 </Link>
                 <Link href="/vendors" className="block py-2 text-sm font-medium">
                   VENDORS

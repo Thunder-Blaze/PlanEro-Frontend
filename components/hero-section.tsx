@@ -36,7 +36,7 @@ export function HeroSection() {
         >
           <h2 className="text-2xl font-bold mb-4">Plan Your Dream Event</h2>
           <p className="text-gray-600 mb-6 leading-relaxed">
-            Weddings, galas, birthdays, and more. PartySlate helps you find venues, vendors, and ideas you can't find
+            Weddings, galas, birthdays, and more. PlanEro helps you find venues, vendors, and ideas you can't find
             anywhere else.
           </p>
           <Button

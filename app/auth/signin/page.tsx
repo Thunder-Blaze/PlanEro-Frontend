@@ -44,11 +44,11 @@ export default function SignInPage() {
   }
 
   const handleGoogleSignIn = () => {
-    signIn("google", { callbackUrl: "/" })
+    signIn("google", { callbackUrl: "/auth/select-role" })
   }
 
   const handleGitHubSignIn = () => {
-    signIn("github", { callbackUrl: "/" })
+    signIn("github", { callbackUrl: "/auth/select-role" })
   }
 
   return (
@@ -56,7 +56,7 @@ export default function SignInPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
-          <CardDescription>Sign in to your PartySlate account</CardDescription>
+          <CardDescription>Sign in to your PlanEro account</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <form onSubmit={handleSubmit} className="space-y-4">

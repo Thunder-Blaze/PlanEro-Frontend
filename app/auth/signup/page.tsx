@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Github, Mail } from "lucide-react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Github, Mail, Building2, User, Crown } from "lucide-react"
 import toast from "react-hot-toast"
 
 export default function SignUpPage() {
@@ -18,6 +19,7 @@ export default function SignUpPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+  const [role, setRole] = useState("HOST")
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
@@ -32,21 +34,48 @@ export default function SignUpPage() {
     setLoading(true)
 
     try {
-      // TODO: Implement actual user registration
-      // For now, simulate registration and then sign in
+      // Register the user
+      const registerResponse = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          role,
+        }),
+      })
+
+      if (!registerResponse.ok) {
+        const error = await registerResponse.json()
+        toast.error(error.error || "Registration failed")
+        return
+      }
+
+      // After successful registration, sign in the user
       const result = await signIn("credentials", {
         email,
         password,
+        role,
         redirect: false,
       })
 
       if (result?.error) {
-        toast.error("Registration failed")
+        toast.error("Registration successful, but sign-in failed. Please try signing in manually.")
       } else {
         toast.success("Account created successfully!")
-        router.push("/")
+        
+        // Redirect based on role
+        if (role === "VENDOR") {
+          router.push("/vendor/onboarding")
+        } else {
+          router.push("/")
+        }
       }
     } catch (error) {
+      console.error("Registration error:", error)
       toast.error("Something went wrong")
     } finally {
       setLoading(false)
@@ -54,11 +83,11 @@ export default function SignUpPage() {
   }
 
   const handleGoogleSignIn = () => {
-    signIn("google", { callbackUrl: "/" })
+    signIn("google", { callbackUrl: "/auth/select-role" })
   }
 
   const handleGitHubSignIn = () => {
-    signIn("github", { callbackUrl: "/" })
+    signIn("github", { callbackUrl: "/auth/select-role" })
   }
 
   return (
@@ -66,7 +95,7 @@ export default function SignUpPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
-          <CardDescription>Join PartySlate to start planning your perfect event</CardDescription>
+          <CardDescription>Join PlanEro to start planning your perfect event</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -97,6 +126,43 @@ export default function SignUpPage() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
+            </div>
+            <div>
+              <Label htmlFor="role">Account Type</Label>
+              <Select value={role} onValueChange={setRole}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select account type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="HOST">
+                    <div className="flex items-center gap-2">
+                      <User className="h-4 w-4" />
+                      <div>
+                        <p className="font-medium">Event Host</p>
+                        <p className="text-xs text-muted-foreground">Planning an event</p>
+                      </div>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="VENDOR">
+                    <div className="flex items-center gap-2">
+                      <Building2 className="h-4 w-4" />
+                      <div>
+                        <p className="font-medium">Vendor</p>
+                        <p className="text-xs text-muted-foreground">Offering event services</p>
+                      </div>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="ADMIN">
+                    <div className="flex items-center gap-2">
+                      <Crown className="h-4 w-4" />
+                      <div>
+                        <p className="font-medium">Administrator</p>
+                        <p className="text-xs text-muted-foreground">Platform management</p>
+                      </div>
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Creating Account..." : "Create Account"}

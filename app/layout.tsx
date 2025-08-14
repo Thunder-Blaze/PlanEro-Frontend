@@ -12,9 +12,8 @@ import { SmoothScrollProvider } from "@/components/smooth-scroll-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "PartySlate - Find Your Perfect Venue",
+  title: "PlanEro - Find Your Perfect Venue",
   description: "Discover unique venues, vendors, and services for your special event",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
