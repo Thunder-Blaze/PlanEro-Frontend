@@ -152,15 +152,6 @@ export default function SignUpPage() {
                       </div>
                     </div>
                   </SelectItem>
-                  <SelectItem value="ADMIN">
-                    <div className="flex items-center gap-2">
-                      <Crown className="h-4 w-4" />
-                      <div>
-                        <p className="font-medium">Administrator</p>
-                        <p className="text-xs text-muted-foreground">Platform management</p>
-                      </div>
-                    </div>
-                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>

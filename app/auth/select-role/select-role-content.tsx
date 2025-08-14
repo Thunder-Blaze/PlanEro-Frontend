@@ -29,15 +29,6 @@ const accountTypes = [
     color: "bg-green-50 border-green-200 hover:bg-green-100",
     iconColor: "text-green-600"
   },
-  {
-    value: "ADMIN",
-    title: "Administrator", 
-    description: "I manage the platform (admin access required)",
-    icon: Crown,
-    features: ["Approve vendors", "Manage users", "Platform analytics", "Content moderation"],
-    color: "bg-purple-50 border-purple-200 hover:bg-purple-100",
-    iconColor: "text-purple-600"
-  }
 ]
 
 export default function SelectRoleContent() {
@@ -87,9 +78,6 @@ export default function SelectRoleContent() {
     switch (role) {
       case "VENDOR":
         router.push("/vendor/dashboard")
-        break
-      case "ADMIN":
-        router.push("/admin/dashboard")
         break
       default:
         router.push("/")
