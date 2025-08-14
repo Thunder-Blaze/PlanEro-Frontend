@@ -13,7 +13,7 @@ export function HeroSection() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('/placeholder.svg?height=800&width=1200')`,
+          backgroundImage: `url('https://media.istockphoto.com/id/908077986/photo/wedding-ceremony.jpg?s=612x612&w=0&k=20&c=dkRXHQpOr4lkyHtE3RV4qpgp3QloHtkfYtQ6qzFN4xw=')`,
         }}
       >
         <div className="absolute inset-0 bg-black/20" />

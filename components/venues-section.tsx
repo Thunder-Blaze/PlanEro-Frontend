@@ -12,7 +12,7 @@ const venueCategories = [
     name: "Wedding Venues",
     description: "Romantic venues perfect for your special day",
     icon: Heart,
-    image: "/placeholder.svg?height=300&width=400",
+    image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
     venueCount: 45,
     priceRange: "$3,000 - $15,000",
     color: "from-pink-500/20 to-rose-500/20"
@@ -22,7 +22,7 @@ const venueCategories = [
     name: "Corporate Events",
     description: "Professional spaces for meetings and conferences",
     icon: Building2,
-    image: "/placeholder.svg?height=300&width=400",
+    image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
     venueCount: 32,
     priceRange: "$2,000 - $12,000",
     color: "from-blue-500/20 to-indigo-500/20"
@@ -32,7 +32,7 @@ const venueCategories = [
     name: "Birthday Parties",
     description: "Fun venues to celebrate another year of life",
     icon: Cake,
-    image: "/placeholder.svg?height=300&width=400",
+    image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
     venueCount: 28,
     priceRange: "$500 - $5,000",
     color: "from-yellow-500/20 to-orange-500/20"
@@ -42,7 +42,7 @@ const venueCategories = [
     name: "Special Occasions",
     description: "Unique venues for all your celebrations",
     icon: Sparkles,
-    image: "/placeholder.svg?height=300&width=400",
+    image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
     venueCount: 38,
     priceRange: "$1,000 - $8,000",
     color: "from-purple-500/20 to-violet-500/20"
@@ -52,7 +52,7 @@ const venueCategories = [
     name: "Social Gatherings",
     description: "Casual spaces for family and friends",
     icon: Users,
-    image: "/placeholder.svg?height=300&width=400",
+    image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
     venueCount: 25,
     priceRange: "$800 - $6,000",
     color: "from-green-500/20 to-emerald-500/20"
@@ -62,7 +62,7 @@ const venueCategories = [
     name: "Formal Events",
     description: "Elegant venues for sophisticated occasions",
     icon: Calendar,
-    image: "/placeholder.svg?height=300&width=400",
+    image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
     venueCount: 22,
     priceRange: "$4,000 - $20,000",
     color: "from-slate-500/20 to-gray-500/20"

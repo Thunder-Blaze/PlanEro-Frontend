@@ -108,7 +108,7 @@ export default function AboutPage() {
               className="relative"
             >
               <img
-                src="/placeholder.svg?height=400&width=600"
+                src="https://media.istockphoto.com/id/590034882/photo/restaurant-table-with-food.jpg?s=612x612&w=0&k=20&c=ZgVIAKS1s10FiQBLvmmgHXSwoLvMHWa7K4Tla8JZcmI="
                 alt="Our team at work"
                 className="rounded-lg shadow-lg w-full"
               />
