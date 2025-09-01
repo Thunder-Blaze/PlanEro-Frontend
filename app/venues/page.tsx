@@ -3,11 +3,10 @@
 import { useState } from "react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { Filters, FilterState } from "@/components/filters"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Heart, ShoppingCart, MapPin, Users } from "lucide-react"
+import { Heart, ShoppingCart, MapPin, Users, Star } from "lucide-react"
 import { useCart } from "@/hooks/use-cart"
 import { useFavorites } from "@/hooks/use-favorites"
 import { useAuth } from "@/hooks/use-auth"
@@ -45,13 +44,30 @@ const venues = [
 ]
 
 export default function VenuesPage() {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [sortBy, setSortBy] = useState("name")
-  const [filterCategory, setFilterCategory] = useState("all")
+  const [filters, setFilters] = useState<FilterState>({
+    query: "",
+    type: "venue",
+    location: "",
+    category: ""
+  })
 
   const { addItem } = useCart()
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites()
   const { user } = useAuth()
+
+  const filteredVenues = venues.filter(venue => {
+    const matchesQuery = !filters.query || 
+      venue.name.toLowerCase().includes(filters.query.toLowerCase()) ||
+      venue.description.toLowerCase().includes(filters.query.toLowerCase())
+    
+    const matchesCategory = !filters.category || 
+      venue.category.toLowerCase().includes(filters.category.toLowerCase())
+    
+    const matchesLocation = !filters.location || 
+      venue.location.toLowerCase().includes(filters.location.toLowerCase())
+    
+    return matchesQuery && matchesCategory && matchesLocation
+  })
 
   const handleAddToCart = (venue: (typeof venues)[0]) => {
     addItem({
@@ -96,36 +112,14 @@ export default function VenuesPage() {
         </div>
 
         {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <Input placeholder="Search venues..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-          <Select value={filterCategory} onValueChange={setFilterCategory}>
-            <SelectTrigger>
-              <SelectValue placeholder="Category" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Categories</SelectItem>
-              <SelectItem value="wedding">Wedding Venues</SelectItem>
-              <SelectItem value="corporate">Corporate Events</SelectItem>
-              <SelectItem value="birthday">Birthday Parties</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger>
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="name">Name</SelectItem>
-              <SelectItem value="price-low">Price: Low to High</SelectItem>
-              <SelectItem value="price-high">Price: High to Low</SelectItem>
-              <SelectItem value="rating">Rating</SelectItem>
-            </SelectContent>
-          </Select>
-          <Button variant="outline">Clear Filters</Button>
-        </div>
+        <Filters 
+          onFilterChange={setFilters}
+          className="mb-8"
+        />
 
         {/* Venues Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {venues.map((venue, index) => (
+          {filteredVenues.map((venue, index) => (
             <motion.div
               key={venue.id}
               initial={{ opacity: 0, y: 30 }}

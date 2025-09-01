@@ -1,144 +1,137 @@
 "use client"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Calendar, Users, Sparkles, Building2, Heart, Cake } from "lucide-react"
+import { ArrowRight, Calendar, Users, Sparkles, Building2, Heart, Cake, GraduationCap, PartyPopper, MapPin } from "lucide-react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 
 // Venue categories with their details
 const venueCategories = [
   {
-    id: "wedding-venues",
-    name: "Wedding Venues",
-    description: "Romantic venues perfect for your special day",
+    id: "wedding",
+    name: "Wedding",
+    description: "Dream venues for your special day",
     icon: Heart,
     image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
-    venueCount: 45,
-    priceRange: "$3,000 - $15,000",
     color: "from-pink-500/20 to-rose-500/20"
   },
   {
-    id: "corporate-events",
-    name: "Corporate Events",
-    description: "Professional spaces for meetings and conferences",
-    icon: Building2,
-    image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
-    venueCount: 32,
-    priceRange: "$2,000 - $12,000",
-    color: "from-blue-500/20 to-indigo-500/20"
-  },
-  {
-    id: "birthday-parties",
-    name: "Birthday Parties",
-    description: "Fun venues to celebrate another year of life",
-    icon: Cake,
-    image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
-    venueCount: 28,
-    priceRange: "$500 - $5,000",
-    color: "from-yellow-500/20 to-orange-500/20"
-  },
-  {
-    id: "special-occasions",
-    name: "Special Occasions",
-    description: "Unique venues for all your celebrations",
+    id: "anniversary-engagement",
+    name: "Anniversary/Engagement",
+    description: "Celebrate love milestones",
     icon: Sparkles,
     image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
-    venueCount: 38,
-    priceRange: "$1,000 - $8,000",
     color: "from-purple-500/20 to-violet-500/20"
   },
   {
-    id: "social-gatherings",
-    name: "Social Gatherings",
-    description: "Casual spaces for family and friends",
-    icon: Users,
+    id: "corporate",
+    name: "Corporate",
+    description: "Professional event spaces",
+    icon: Building2,
     image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
-    venueCount: 25,
-    priceRange: "$800 - $6,000",
+    color: "from-blue-500/20 to-indigo-500/20"
+  },
+  {
+    id: "college-fests",
+    name: "College Fests",
+    description: "Campus celebration venues",
+    icon: GraduationCap,
+    image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
     color: "from-green-500/20 to-emerald-500/20"
   },
   {
-    id: "formal-events",
-    name: "Formal Events",
-    description: "Elegant venues for sophisticated occasions",
+    id: "house-private-party",
+    name: "House/Private Party",
+    description: "Intimate gathering spaces",
+    icon: Users,
+    image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
+    color: "from-yellow-500/20 to-orange-500/20"
+  },
+  {
+    id: "farewell",
+    name: "Farewell",
+    description: "Memorable goodbye venues",
     icon: Calendar,
     image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
-    venueCount: 22,
-    priceRange: "$4,000 - $20,000",
-    color: "from-slate-500/20 to-gray-500/20"
+    color: "from-teal-500/20 to-cyan-500/20"
+  },
+  {
+    id: "reunion",
+    name: "Reunion",
+    description: "Reconnect in style",
+    icon: PartyPopper,
+    image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
+    color: "from-amber-500/20 to-yellow-500/20"
+  },
+  {
+    id: "baby-shower",
+    name: "Baby Shower",
+    description: "Celebrate new arrivals",
+    icon: Cake,
+    image: "https://media.istockphoto.com/id/175559502/photo/classy-wedding-setting.jpg?s=612x612&w=0&k=20&c=8CluymAckSE1Qxluoy0f0pHR-2yKq7X-Qj5yTsbzMrs=",
+    color: "from-pink-400/20 to-blue-400/20"
   }
 ]
 
 export function VenuesSection() {
   return (
-    <section className="py-16 bg-muted/30">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">VENUES WORTH BOOKING</h2>
-          <p className="text-lg text-muted-foreground">Browse by category to find your perfect venue.</p>
+          <div className="inline-block p-2 bg-primary/10 rounded-full mb-6">
+            <div className="w-4 h-4 bg-primary rounded-full"></div>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            Browse by Venue Type
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Find the perfect venue for your event from our curated collection of premium locations
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
           {venueCategories.map((category, index) => (
             <motion.div
               key={category.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
+              whileHover={{ y: -10 }}
             >
               <Link href={`/venues/category/${category.id}`}>
-                <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
+                <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer h-full bg-white border-0 shadow-lg">
                   <div className="relative">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                    <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                     <img
                       src={category.image}
                       alt={category.name}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-32 md:h-40 object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute top-4 left-4">
-                      <div className="bg-white/90 backdrop-blur-sm rounded-full p-3">
-                        <category.icon className="h-6 w-6 text-primary" />
+                    <div className="absolute top-3 left-3">
+                      <div className="bg-white/95 backdrop-blur-sm rounded-full p-3 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <category.icon className="h-5 w-5 text-primary" />
                       </div>
                     </div>
-                    <div className="absolute bottom-4 right-4">
-                      <div className="bg-white/90 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <ArrowRight className="h-4 w-4 text-primary" />
-                      </div>
-                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                   
-                  <CardContent className="p-6">
-                    <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">
+                  <CardContent className="p-4 md:p-6">
+                    <h3 className="font-bold text-lg md:text-xl mb-2 group-hover:text-primary transition-colors duration-300 text-center">
                       {category.name}
                     </h3>
-                    <p className="text-muted-foreground mb-4 text-sm">
+                    <p className="text-muted-foreground text-sm text-center line-clamp-2 mb-4">
                       {category.description}
                     </p>
                     
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-muted-foreground">Available venues:</span>
-                        <span className="font-semibold">{category.venueCount}</span>
-                      </div>
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-muted-foreground">Price range:</span>
-                        <span className="font-semibold">{category.priceRange}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="mt-4 pt-4 border-t">
-                      <Button className="w-full group-hover:bg-primary group-hover:text-white transition-colors">
-                        Browse {category.name}
-                        <ArrowRight className="h-4 w-4 ml-2" />
-                      </Button>
-                    </div>
+                    {/* Hover Effect Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg" />
                   </CardContent>
                 </Card>
               </Link>
@@ -146,11 +139,25 @@ export function VenuesSection() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Button variant="outline" size="lg" asChild>
-            <Link href="/venues">View All Categories</Link>
+        <motion.div 
+          className="text-center mt-16"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <Button 
+            variant="outline" 
+            size="lg"
+            className="px-8 py-4 text-lg font-semibold border-2 hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105"
+            asChild
+          >
+            <Link href="/venues">
+              <MapPin className="h-5 w-5 mr-2" />
+              View All Venues
+            </Link>
           </Button>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

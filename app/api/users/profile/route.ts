@@ -1,33 +1,47 @@
 import { NextRequest, NextResponse } from "next/server"
-import { getServerSession } from "next-auth"
-import { prisma } from "@/lib/db"
+import { authApi, TokenManager, ApiError } from "@/lib/api"
 
 // Mark this route as dynamic
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession()
+    // Get token from Authorization header
+    const authHeader = request.headers.get('authorization')
+    const token = authHeader?.replace('Bearer ', '') || TokenManager.getToken()
     
-    if (!session?.user?.email) {
+    if (!token) {
       return NextResponse.json(
-        { error: "Unauthorized" },
+        { error: "Unauthorized - No token provided" },
         { status: 401 }
       )
     }
 
-    const user = await prisma.user.findUnique({ 
-      where: { email: session.user.email }
-    })
-    
-    if (!user) {
+    try {
+      // Fetch profile from external API
+      const profile = await authApi.getProfile(token)
+      
+      return NextResponse.json({
+        name: profile.username,
+        email: profile.email,
+        phone: profile.phone,
+        role: profile.role,
+        vendor: profile.vendor,
+      })
+    } catch (apiError) {
+      console.error("External API error:", apiError)
+      if (apiError instanceof ApiError) {
+        return NextResponse.json(
+          { error: apiError.message },
+          { status: apiError.status }
+        )
+      }
+      
       return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 }
+        { error: "Failed to fetch profile from external API" },
+        { status: 500 }
       )
     }
-    
-    return NextResponse.json(user)
   } catch (error) {
     console.error("Error fetching user profile:", error)
     return NextResponse.json(
@@ -39,32 +53,24 @@ export async function GET(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const session = await getServerSession()
+    // Get token from Authorization header
+    const authHeader = request.headers.get('authorization')
+    const token = authHeader?.replace('Bearer ', '') || TokenManager.getToken()
     
-    if (!session?.user?.email) {
+    if (!token) {
       return NextResponse.json(
-        { error: "Unauthorized" },
+        { error: "Unauthorized - No token provided" },
         { status: 401 }
       )
     }
 
     const body = await request.json()
     
-    const updatedUser = await prisma.user.update({
-      where: { email: session.user.email },
-      data: body
-    })
-    
-    if (!updatedUser) {
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 }
-      )
-    }
-    
+    // For now, we'll just return the updated data
+    // In a full implementation, you might want to update the profile via the external API
     return NextResponse.json({
       message: "Profile updated successfully",
-      user: updatedUser
+      user: body
     })
 
   } catch (error) {

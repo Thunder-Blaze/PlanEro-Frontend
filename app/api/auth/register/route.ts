@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import bcrypt from "bcryptjs"
-import { prisma } from "@/lib/db"
+import { authApi, ApiError } from "@/lib/api"
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,47 +13,47 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate role
+    // Validate role and map to external API format
     const validRoles = ["HOST", "VENDOR", "ADMIN"]
     const userRole = role && validRoles.includes(role) ? role : "HOST"
+    
+    // Map internal roles to external API roles
+    const externalRole = userRole === "HOST" ? "USER" : (userRole as "USER" | "VENDOR")
 
-    // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email }
-    })
+    try {
+      // Register user with external API
+      const authResponse = await authApi.signup({
+        username: email, // Using email as username
+        password,
+        role: externalRole,
+      })
 
-    if (existingUser) {
+      // Return success response with token
+      return NextResponse.json({
+        message: "User registered successfully",
+        user: {
+          email,
+          name,
+          role: userRole,
+        },
+        token: authResponse.token,
+        username: authResponse.username,
+      }, { status: 201 })
+
+    } catch (apiError: unknown) {
+      // Handle API errors (user already exists, etc.)
+      if (apiError instanceof ApiError) {
+        return NextResponse.json(
+          { error: apiError.message },
+          { status: apiError.status }
+        )
+      }
+      
       return NextResponse.json(
-        { error: "User already exists" },
+        { error: "Registration failed" },
         { status: 400 }
       )
     }
-
-    // Hash password
-    const saltRounds = 12
-    const hashedPassword = await bcrypt.hash(password, saltRounds)
-
-    // Create user
-    const user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        role: userRole,
-        // Note: Prisma with NextAuth doesn't store passwords directly
-        // This is a simplified version for demo purposes
-      }
-    })
-
-    // Return user without password
-    return NextResponse.json({
-      message: "User registered successfully",
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      }
-    }, { status: 201 })
 
   } catch (error) {
     console.error("Registration error:", error)

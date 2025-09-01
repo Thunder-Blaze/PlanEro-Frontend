@@ -1,43 +1,63 @@
 import { NextRequest, NextResponse } from "next/server"
-import { getServerSession } from "next-auth"
-import { prisma } from "@/lib/db"
+import { vendorApi, TokenManager, ApiError } from "@/lib/api"
 
 // POST /vendors - Create vendor
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession()
+    // Get token from Authorization header
+    const authHeader = request.headers.get('authorization')
+    const token = authHeader?.replace('Bearer ', '') || TokenManager.getToken()
     
-    if (!session?.user?.id) {
+    if (!token) {
       return NextResponse.json(
-        { error: "Unauthorized" },
+        { error: "Unauthorized - No token provided" },
         { status: 401 }
       )
     }
 
     const body = await request.json()
-    const { businessName, location, pincode, bio, websiteUrl, profilePictureUrl, expenseLevel } = body
+    const { businessName, location, bio, websiteUrl, profilePictureUrl, phoneNumber, addressId, email } = body
 
-    if (!businessName || !location || !pincode || !expenseLevel) {
+    if (!businessName || !location || !email) {
       return NextResponse.json(
-        { error: "Missing required fields" },
+        { error: "Missing required fields: businessName, location, email" },
         { status: 400 }
       )
     }
 
-    const vendor = await prisma.vendor.create({
-      data: {
+    try {
+      // Create vendor through external API
+      const vendorData = {
         businessName,
         location,
-        pincode,
-        bio,
-        websiteUrl,
-        profilePictureUrl,
-        expenseLevel,
-        userId: session.user.id,
+        bio: bio || "",
+        websiteUrl: websiteUrl ? [websiteUrl] : [],
+        profilePictureUrl: profilePictureUrl || "",
+        email,
+        phoneNumber: phoneNumber || "",
+        addressId: addressId || 0,
+        approved: false,
+        published: false,
       }
-    })
+      
+      const vendor = await vendorApi.createVendor(vendorData, token)
 
-    return NextResponse.json(vendor, { status: 201 })
+      return NextResponse.json(vendor, { status: 201 })
+      
+    } catch (apiError) {
+      console.error("External API error:", apiError)
+      if (apiError instanceof ApiError) {
+        return NextResponse.json(
+          { error: apiError.message },
+          { status: apiError.status }
+        )
+      }
+      
+      return NextResponse.json(
+        { error: "Failed to create vendor" },
+        { status: 500 }
+      )
+    }
 
   } catch (error) {
     console.error("Error creating vendor:", error)
@@ -54,55 +74,42 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const pgNo = parseInt(searchParams.get('pgNo') || '1')
     const pgSize = parseInt(searchParams.get('pgSize') || '10')
-    const pincode = searchParams.get('pincode')
-    const eventType = searchParams.get('eventType')
 
-    const skip = (pgNo - 1) * pgSize
-
-    const where: any = {
-      isApproved: true,
-      isPublished: true,
-    }
-
-    if (pincode) {
-      where.pincode = pincode
-    }
-
-    if (eventType) {
-      where.services = {
-        some: {
-          eventType: eventType
+    try {
+      // Fetch from external API
+      const allVendors = await vendorApi.getAllVendors()
+      
+      // Filter approved and published vendors
+      const filteredVendors = allVendors.filter(vendor => vendor.approved && vendor.published)
+      
+      // Apply pagination
+      const skip = (pgNo - 1) * pgSize
+      const paginatedVendors = filteredVendors.slice(skip, skip + pgSize)
+      
+      return NextResponse.json({
+        vendors: paginatedVendors,
+        pagination: {
+          page: pgNo,
+          size: pgSize,
+          total: filteredVendors.length,
+          pages: Math.ceil(filteredVendors.length / pgSize)
         }
-      }
-    }
-
-    const [vendors, total] = await Promise.all([
-      prisma.vendor.findMany({
-        where,
-        skip,
-        take: pgSize,
-        include: {
-          services: true,
-          user: {
-            select: {
-              name: true,
-              email: true,
-            }
-          }
+      })
+      
+    } catch (apiError) {
+      console.error("External API error:", apiError)
+      
+      // Return empty result if API is down
+      return NextResponse.json({
+        vendors: [],
+        pagination: {
+          page: pgNo,
+          size: pgSize,
+          total: 0,
+          pages: 0
         }
-      }),
-      prisma.vendor.count({ where })
-    ])
-
-    return NextResponse.json({
-      vendors,
-      pagination: {
-        page: pgNo,
-        size: pgSize,
-        total,
-        pages: Math.ceil(total / pgSize)
-      }
-    })
+      })
+    }
 
   } catch (error) {
     console.error("Error fetching vendors:", error)

@@ -34,9 +34,23 @@ export default function SignInPage() {
         toast.error("Invalid credentials")
       } else {
         toast.success("Welcome back!")
-        router.push("/")
+        
+        // Redirect based on user role
+        // The role will be available in the session after successful sign-in
+        const response = await fetch("/api/users/profile")
+        if (response.ok) {
+          const profile = await response.json()
+          if (profile.role === "VENDOR") {
+            router.push("/vendor/dashboard")
+          } else {
+            router.push("/")
+          }
+        } else {
+          router.push("/")
+        }
       }
     } catch (error) {
+      console.error("Sign in error:", error)
       toast.error("Something went wrong")
     } finally {
       setLoading(false)

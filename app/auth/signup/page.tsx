@@ -34,7 +34,7 @@ export default function SignUpPage() {
     setLoading(true)
 
     try {
-      // Register the user
+      // Register the user using the new API
       const registerResponse = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
@@ -53,6 +53,8 @@ export default function SignUpPage() {
         toast.error(error.error || "Registration failed")
         return
       }
+
+      const registerData = await registerResponse.json()
 
       // After successful registration, sign in the user
       const result = await signIn("credentials", {

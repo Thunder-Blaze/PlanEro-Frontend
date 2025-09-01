@@ -1,6 +1,7 @@
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { VenuesSection } from "@/components/venues-section"
+import { VendorsSection } from "@/components/vendors-section"
 import { ServicesSection } from "@/components/services-section"
 import { Footer } from "@/components/footer"
 import { LoadingSpinner } from "@/components/loading-spinner"
@@ -14,7 +15,7 @@ export default function HomePage() {
         <main>
           <HeroSection />
           <VenuesSection />
-          <ServicesSection />
+          <VendorsSection />
         </main>
       </Suspense>
       <Footer />
