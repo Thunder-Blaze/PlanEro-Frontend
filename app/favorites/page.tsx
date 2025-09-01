@@ -36,8 +36,6 @@ export default function FavoritesPage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen">
-        <Header />
         <main className="container mx-auto px-4 py-16">
           <div className="text-center">
             <h1 className="text-3xl font-bold mb-4">Please Log In</h1>
@@ -47,15 +45,11 @@ export default function FavoritesPage() {
             </Button>
           </div>
         </main>
-        <Footer />
-      </div>
     )
   }
 
   if (favorites.length === 0) {
     return (
-      <div className="min-h-screen">
-        <Header />
         <main className="container mx-auto px-4 py-16">
           <div className="text-center">
             <h1 className="text-3xl font-bold mb-4">No Favorites Yet</h1>
@@ -70,14 +64,10 @@ export default function FavoritesPage() {
             </div>
           </div>
         </main>
-        <Footer />
-      </div>
     )
   }
 
   return (
-    <div className="min-h-screen">
-      <Header />
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-4">Your Favorites</h1>
@@ -133,7 +123,5 @@ export default function FavoritesPage() {
           ))}
         </div>
       </main>
-      <Footer />
-    </div>
   )
 }

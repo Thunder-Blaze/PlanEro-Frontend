@@ -14,8 +14,6 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen">
-        <Header />
         <main className="container mx-auto px-4 py-16">
           <div className="text-center">
             <h1 className="text-3xl font-bold mb-4">Your Cart is Empty</h1>
@@ -25,14 +23,10 @@ export default function CartPage() {
             </Button>
           </div>
         </main>
-        <Footer />
-      </div>
     )
   }
 
   return (
-    <div className="min-h-screen">
-      <Header />
       <main className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
@@ -125,7 +119,5 @@ export default function CartPage() {
           </div>
         </div>
       </main>
-      <Footer />
-    </div>
   )
 }

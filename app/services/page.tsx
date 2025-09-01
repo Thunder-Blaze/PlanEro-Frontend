@@ -6,6 +6,8 @@ import { Footer } from "@/components/footer"
 import { Filters, FilterState } from "@/components/filters"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Heart, ShoppingCart, MapPin, Star } from "lucide-react"
 import { useCart } from "@/hooks/use-cart"
 import { useFavorites } from "@/hooks/use-favorites"
@@ -94,8 +96,6 @@ export default function ServicesPage() {
   }
 
   return (
-    <div className="min-h-screen">
-      <Header />
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-4">Professional Services</h1>
@@ -196,7 +196,5 @@ export default function ServicesPage() {
           ))}
         </div>
       </main>
-      <Footer />
-    </div>
   )
 }

@@ -160,8 +160,6 @@ export default function VenueDetailPage() {
 
   if (!venue) {
     return (
-      <div className="min-h-screen">
-        <Header />
         <main className="container mx-auto px-4 py-16">
           <div className="text-center">
             <h1 className="text-3xl font-bold mb-4">Venue Not Found</h1>
@@ -171,8 +169,6 @@ export default function VenueDetailPage() {
             </Button>
           </div>
         </main>
-        <Footer />
-      </div>
     )
   }
 
@@ -218,8 +214,6 @@ export default function VenueDetailPage() {
   }
 
   return (
-    <div className="min-h-screen">
-      <Header />
       <main className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="mb-6">
@@ -434,7 +428,5 @@ export default function VenueDetailPage() {
           </div>
         </div>
       </main>
-      <Footer />
-    </div>
   )
 }

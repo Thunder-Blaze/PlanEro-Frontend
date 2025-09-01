@@ -48,9 +48,7 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen">
-      <Header />
-      {/* Hero Section */}
+    <>
       <section className="relative py-20 bg-gradient-to-br from-primary/10 to-secondary/10">
         <div className="container mx-auto px-4">
           <motion.div
@@ -249,6 +247,6 @@ export default function AboutPage() {
           </motion.div>
         </div>
       </section>
-    </div>
+    </>
   )
 }

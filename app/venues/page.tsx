@@ -103,8 +103,6 @@ export default function VenuesPage() {
   }
 
   return (
-    <div className="min-h-screen">
-      <Header />
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-4">Find Your Perfect Venue</h1>
@@ -176,7 +174,5 @@ export default function VenuesPage() {
           ))}
         </div>
       </main>
-      <Footer />
-    </div>
   )
 }

@@ -8,6 +8,10 @@ import { QueryProvider } from "@/components/query-provider"
 import { AuthProvider } from "@/components/auth-provider"
 import { CartProvider } from "@/components/cart-provider"
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider"
+import { Footer } from "@/components/footer"
+import { LoadingSpinner } from "@/components/loading-spinner"
+import { Suspense } from "react"
+import { Header } from "@/components/header"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -29,7 +33,13 @@ export default function RootLayout({
             <QueryProvider>
               <CartProvider>
                 <SmoothScrollProvider>
-                  {children}
+                  <div className="min-h-screen flex flex-col justify-between">
+                    <Header />
+                      <Suspense fallback={<LoadingSpinner />}>
+                        {children}
+                      </Suspense>
+                    <Footer />
+                  </div>
                   <Toaster position="top-right" />
                 </SmoothScrollProvider>
               </CartProvider>

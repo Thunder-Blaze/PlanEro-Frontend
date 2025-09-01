@@ -9,16 +9,10 @@ import { Suspense } from "react"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen">
-      <Header />
-      <Suspense fallback={<LoadingSpinner />}>
         <main>
           <HeroSection />
           <VenuesSection />
           <VendorsSection />
         </main>
-      </Suspense>
-      <Footer />
-    </div>
   )
 }
