@@ -159,7 +159,7 @@ export default function AdvancedSearchPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white pt-24 pb-12">
+        <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 pt-24 pb-12">
       <div className="container mx-auto px-4">
         {/* Header */}
         <motion.div
@@ -167,7 +167,7 @@ export default function AdvancedSearchPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
             Advanced Search
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -183,7 +183,7 @@ export default function AdvancedSearchPage() {
           className="max-w-6xl mx-auto"
         >
           {/* Main Search Bar */}
-          <Card className="mb-8 shadow-lg border-0 bg-white/70 backdrop-blur-sm">
+          <Card className="mb-8 shadow-lg border-0 bg-background/70 backdrop-blur-sm">
             <CardContent className="p-6">
               <div className="flex flex-col lg:flex-row gap-4 items-end">
                 <div className="flex-1">
@@ -214,7 +214,7 @@ export default function AdvancedSearchPage() {
                   </Button>
                   <Button
                     onClick={handleSearch}
-                    className="h-12 px-8 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                    className="h-12 px-8 bg-primary hover:bg-primary/90"
                   >
                     <Search className="h-4 w-4 mr-2" />
                     Search
@@ -241,7 +241,7 @@ export default function AdvancedSearchPage() {
           {/* Filters Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             {/* Basic Filters */}
-            <Card className="shadow-lg border-0 bg-white/70 backdrop-blur-sm">
+            <Card className="shadow-lg border-0 bg-background/70 backdrop-blur-sm">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center text-lg">
                   <Filter className="h-5 w-5 mr-2 text-blue-600" />
@@ -303,7 +303,7 @@ export default function AdvancedSearchPage() {
             </Card>
 
             {/* Price & Rating */}
-            <Card className="shadow-lg border-0 bg-white/70 backdrop-blur-sm">
+            <Card className="shadow-lg border-0 bg-background/70 backdrop-blur-sm">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center text-lg">
                   <DollarSign className="h-5 w-5 mr-2 text-green-600" />
@@ -364,7 +364,7 @@ export default function AdvancedSearchPage() {
             </Card>
 
             {/* Amenities & Availability */}
-            <Card className="shadow-lg border-0 bg-white/70 backdrop-blur-sm lg:col-span-2 xl:col-span-1">
+            <Card className="shadow-lg border-0 bg-background/70 backdrop-blur-sm lg:col-span-2 xl:col-span-1">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center text-lg">
                   <Sliders className="h-5 w-5 mr-2 text-purple-600" />
@@ -420,39 +420,39 @@ export default function AdvancedSearchPage() {
               animate={{ opacity: 1, height: "auto" }}
               className="mt-8"
             >
-              <Card className="shadow-lg border-0 bg-blue-50/50 backdrop-blur-sm">
+              <Card className="shadow-lg border-0 bg-muted/50 backdrop-blur-sm">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-medium text-sm text-blue-800">
+                    <h3 className="font-medium text-sm text-foreground">
                       Active Filters ({getActiveFiltersCount()})
                     </h3>
-                    <Button variant="ghost" size="sm" onClick={clearAllFilters} className="text-blue-700 hover:text-blue-900">
+                    <Button variant="ghost" size="sm" onClick={clearAllFilters} className="text-muted-foreground hover:text-foreground">
                       Clear All
                     </Button>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {filters.category !== 'all' && (
-                      <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                      <Badge variant="secondary" className="bg-primary/10 text-primary">
                         Category: {categories.find(c => c.value === filters.category)?.label}
                       </Badge>
                     )}
                     {filters.location !== 'all' && (
-                      <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                      <Badge variant="secondary" className="bg-primary/10 text-primary">
                         Location: {locations.find(l => l.value === filters.location)?.label}
                       </Badge>
                     )}
                     {(filters.priceRange[0] > 0 || filters.priceRange[1] < 100000) && (
-                      <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                      <Badge variant="secondary" className="bg-primary/10 text-primary">
                         Price: ₹{filters.priceRange[0].toLocaleString()} - ₹{filters.priceRange[1].toLocaleString()}
                       </Badge>
                     )}
                     {filters.rating > 0 && (
-                      <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                      <Badge variant="secondary" className="bg-primary/10 text-primary">
                         Rating: {filters.rating}+ stars
                       </Badge>
                     )}
                     {filters.amenities.length > 0 && (
-                      <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                      <Badge variant="secondary" className="bg-primary/10 text-primary">
                         Amenities: {filters.amenities.length} selected
                       </Badge>
                     )}
@@ -473,7 +473,7 @@ export default function AdvancedSearchPage() {
               <Button
                 size="lg"
                 onClick={handleSearch}
-                className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200"
+                className="px-8 py-4 text-lg font-semibold bg-primary hover:bg-primary/90 transform hover:scale-105 transition-all duration-200"
               >
                 <Search className="h-5 w-5 mr-2" />
                 Search with Filters
@@ -483,7 +483,7 @@ export default function AdvancedSearchPage() {
                 variant="outline"
                 size="lg"
                 onClick={() => router.push('/search')}
-                className="px-8 py-4 text-lg font-semibold border-2 hover:bg-primary hover:text-white transition-all duration-200"
+                className="px-8 py-4 text-lg font-semibold border-2 hover:bg-primary hover:text-background transition-all duration-200"
               >
                 Basic Search
               </Button>

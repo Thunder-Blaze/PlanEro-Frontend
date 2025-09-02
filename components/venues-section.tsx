@@ -106,32 +106,39 @@ export function VenuesSection() {
               whileHover={{ y: -10 }}
             >
               <Link href={`/venues/category/${category.id}`}>
-                <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer h-full bg-white border-0 shadow-lg">
-                  <div className="relative">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                    <img
-                      src={category.image}
-                      alt={category.name}
-                      className="w-full h-32 md:h-40 object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    <div className="absolute top-3 left-3">
-                      <div className="bg-white/95 backdrop-blur-sm rounded-full p-3 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <category.icon className="h-5 w-5 text-primary" />
+                <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer h-full bg-card border border-border/50 shadow-lg hover:border-primary/20 relative">
+                  <div className="relative overflow-hidden">
+                    <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10`} />
+                    <div className="overflow-hidden">
+                      <img
+                        src={category.image}
+                        alt={category.name}
+                        className="w-full h-32 md:h-40 object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    </div>
+                    <div className="absolute top-3 left-3 z-20">
+                      <div className="bg-background/95 backdrop-blur-sm rounded-full p-2.5 shadow-lg group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-300 border border-border/20">
+                        <category.icon className="h-4 w-4 text-primary group-hover:text-primary transition-colors duration-300" />
                       </div>
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute top-3 right-3 z-20">
+                      <div className="bg-background/95 backdrop-blur-sm rounded-full p-2.5 shadow-lg group-hover:scale-110 group-hover:bg-primary transition-all duration-300 border border-border/20 opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0">
+                        <ArrowRight className="h-4 w-4 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+                      </div>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
                   </div>
                   
-                  <CardContent className="p-4 md:p-6">
-                    <h3 className="font-bold text-lg md:text-xl mb-2 group-hover:text-primary transition-colors duration-300 text-center">
+                  <CardContent className="p-4 md:p-6 relative z-20">
+                    <h3 className="font-bold text-lg md:text-xl mb-2 group-hover:text-primary transition-colors duration-300 text-center line-clamp-1">
                       {category.name}
                     </h3>
-                    <p className="text-muted-foreground text-sm text-center line-clamp-2 mb-4">
+                    <p className="text-muted-foreground text-sm text-center line-clamp-2 group-hover:text-muted-foreground/80 transition-colors duration-300">
                       {category.description}
                     </p>
                     
                     {/* Hover Effect Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg pointer-events-none" />
                   </CardContent>
                 </Card>
               </Link>

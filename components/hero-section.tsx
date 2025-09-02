@@ -33,18 +33,19 @@ export function HeroSection() {
             className="absolute w-1 h-1 bg-primary/30 rounded-full"
             initial={{ 
               y: "100vh", 
-              x: typeof window !== 'undefined' ? Math.random() * window.innerWidth : Math.random() * 1000,
+              x: `${(i * 50) % 100}vw`,
               opacity: 0
             }}
             animate={{ 
               y: "-100px",
-              x: typeof window !== 'undefined' ? Math.random() * window.innerWidth : Math.random() * 1000,
+              x: `${((i * 50) + 20) % 100}vw`,
               opacity: [0, 1, 0]
             }}
             transition={{
-              duration: Math.random() * 15 + 15,
+              duration: 15 + (i % 10),
               repeat: Infinity,
-              ease: "linear"
+              ease: "linear",
+              delay: i * 0.2
             }}
           />
         ))}

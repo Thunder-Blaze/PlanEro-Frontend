@@ -59,15 +59,15 @@ export default function VendorLayout({
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-background">
       {/* Sidebar */}
-      <div className="w-64 bg-white border-r border-gray-200">
+      <div className="w-64 bg-card border-r border-border">
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="p-6">
             <Link href="/" className="flex items-center gap-2">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">P</span>
+                <span className="text-primary-foreground font-bold text-sm">P</span>
               </div>
               <span className="font-semibold text-lg">PlanEro</span>
             </Link>
@@ -89,7 +89,7 @@ export default function VendorLayout({
                         "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                         isActive
                           ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:text-foreground hover:bg-gray-100"
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted"
                       )}
                     >
                       <Icon className="h-4 w-4" />

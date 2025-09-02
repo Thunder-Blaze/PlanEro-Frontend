@@ -1,7 +1,7 @@
 # Authentication System Rewrite - Integration with External API
 
 ## Overview
-This document outlines the complete rewrite of the PlaneEro Frontend authentication system to integrate with the external backend API at `http://16.170.172.178:8080` based on the OpenAPI specification provided.
+This document outlines the complete rewrite of the Planero Frontend authentication system to integrate with the external backend API at `http://16.170.172.178:8080` based on the OpenAPI specification provided.
 
 ## Changes Made
 

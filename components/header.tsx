@@ -80,11 +80,11 @@ export function Header() {
           
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 mr-7">
               <div className="w-8 h-8 bg-gradient-to-r from-primary to-primary/80 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">PE</span>
               </div>
-              <span className="font-bold text-xl text-foreground">PlaneEro</span>
+              <span className="font-bold text-xl text-foreground">Planero</span>
             </div>
           </Link>
 
